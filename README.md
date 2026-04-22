@@ -436,5 +436,189 @@ public class Main {
 ```
 <img width="790" height="260" alt="image" src="https://github.com/user-attachments/assets/b9c02b38-a32f-495e-98ee-e6f7650bbdf6" />
 
+## assi-18
+```
+// File: Student.java
+package mypack;
+
+public class Student1 {
+
+    public void showStudent() {
+        System.out.println("This is Student class inside mypack package");
+    }
+}
+
+// File: Result.java
+package mypack.details;
+
+public class Result {
+
+    public void showResult() {
+        System.out.println("This is Result class inside sub-package mypack.details");
+    }
+}
+
+// File: TestPackage.java
+
+import mypack.Student1;
+import mypack.details.Result;
+
+public class TestPackage {
+
+    public static void main(String[] args) {
+
+        Student1 s = new Student1();
+        s.showStudent();
+
+        Result r = new Result();
+        r.showResult();
+    }
+}
+```
+<img width="879" height="151" alt="image" src="https://github.com/user-attachments/assets/5a7e0320-76fe-487e-a5fe-e3381c65650e" />
+
+## assi-19
+```
+public class ExceptionDemo {
+
+    public static void main(String[] args) {
+
+        // -------- ARRAY OUT OF BOUNDS --------
+        try {
+            int arr[] = {10, 20, 30, 40, 50};
+
+            System.out.println("Valid access: " + arr[2]);
+
+            // Invalid access
+            System.out.println("Invalid access: " + arr[8]);
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Exception: Array index is out of bounds! Please access valid index.");
+        }
+
+
+        // -------- ARITHMETIC EXCEPTION --------
+        try {
+            int a = 10;
+            int b = 0;
+
+            int result = a / b;
+
+            System.out.println("Result: " + result);
+
+        } catch (ArithmeticException e) {
+            System.out.println("Exception: Division by zero is not allowed!");
+        }
+
+        System.out.println("Program executed successfully.");
+    }
+}
+```
+<img width="816" height="173" alt="image" src="https://github.com/user-attachments/assets/09668dce-c9c5-4bdc-b787-854dabcc30f5" />
+
+## assi-20
+```
+import java.util.Scanner;
+
+// User Defined Exception
+class InvalidAgeException extends Exception {
+    InvalidAgeException(String message) {
+        super(message);
+    }
+}
+
+// Student Class (Main Class)
+public class Student {
+
+    int age;
+
+    // Method to check age
+    void checkAge() throws InvalidAgeException {
+        if (age < 18) {
+            throw new InvalidAgeException("Age is too low. Not eligible.");
+        } 
+        else if (age > 60) {
+            throw new InvalidAgeException("Age is too high. Not eligible.");
+        } 
+        else {
+            System.out.println("Valid Age. Student is eligible.");
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        Student s = new Student();
+
+        System.out.print("Enter age: ");
+        s.age = sc.nextInt();
+
+        try {
+            s.checkAge();
+        } catch (InvalidAgeException e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
+
+        sc.close();
+    }
+}
+```
+
+<img width="666" height="146" alt="image" src="https://github.com/user-attachments/assets/ea86a252-2c1c-45ba-aaaf-34a4195cd1b9" />
+
+## assi-21
+
+## assi-22
+``` // Interface
+interface Vehicle {
+    void start();
+    void stop();
+}
+
+// Abstract Class
+abstract class Machine {
+    abstract void fuelType();
+
+    void display() {
+        System.out.println("This is a machine");
+    }
+}
+
+// Parent Class (Inheritance)
+class Car extends Machine implements Vehicle {
+
+    // Implementing interface methods
+    public void start() {
+        System.out.println("Car starts with key");
+    }
+
+    public void stop() {
+        System.out.println("Car stops using brake");
+    }
+
+    // Implementing abstract method
+    void fuelType() {
+        System.out.println("Fuel Type: Petrol/Diesel");
+    }
+}
+
+// Main Class
+public class Main {
+    public static void main(String[] args) {
+
+        Car c = new Car();
+
+        c.display();      // from abstract class (concrete method)
+        c.fuelType();     // abstract method
+        c.start();        // interface method
+        c.stop();         // interface method
+    }
+}
+```
+
+<img width="526" height="169" alt="image" src="https://github.com/user-attachments/assets/0a217470-bfbc-466e-a127-05d6a801fda9" />
+
+
 ## Javalab
 
