@@ -393,7 +393,8 @@ public class Main{
 <img width="754" height="394" alt="image" src="https://github.com/user-attachments/assets/218927bc-40f2-40f2-9e20-807547526632" />
 
 ## assi-8
-```class A {
+```
+class A {
     void showA() {
         System.out.println("Class A");
     }
@@ -435,6 +436,525 @@ public class Main {
 }
 ```
 <img width="790" height="260" alt="image" src="https://github.com/user-attachments/assets/b9c02b38-a32f-495e-98ee-e6f7650bbdf6" />
+
+## assi-10
+```
+class MyThread extends Thread {
+
+    String name;
+
+    MyThread(String name) {
+        this.name = name;
+    }
+
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println(name + " -> " + i);
+            try {
+                Thread.sleep(500); // delay for visibility
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+}
+
+public class ThreadJoinDemo {
+
+    public static void main(String[] args) {
+
+        MyThread t1 = new MyThread("Thread-1");
+        MyThread t2 = new MyThread("Thread-2");
+        MyThread t3 = new MyThread("Thread-3");
+
+        try {
+            t1.start();
+            t1.join();   // wait for t1 to finish
+
+            t2.start();
+            t2.join();   // wait for t2 to finish
+
+            t3.start();
+            t3.join();   // wait for t3 to finish
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        System.out.println("All threads completed.");
+    }
+}
+```
+<img width="717" height="440" alt="image" src="https://github.com/user-attachments/assets/899e0b0f-ae68-4116-b5b0-d3410b8661ef" />
+
+## assi-11
+
+```
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class AdditionGUI extends JFrame implements ActionListener {
+
+    JTextField num1, num2, result;
+    JButton addBtn;
+
+    public AdditionGUI() {
+
+        setTitle("Addition of Two Numbers");
+        setSize(500, 250); 
+        setLayout(new GridLayout(4, 2, 15, 15)); 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        num1 = new JTextField();
+        num2 = new JTextField();
+        result = new JTextField();
+        result.setEditable(false);
+
+        addBtn = new JButton("Add");
+        addBtn.setPreferredSize(new Dimension(120, 40));
+        addBtn.addActionListener(this);
+
+        add(new JLabel("Number 1:"));
+        add(num1);
+
+        add(new JLabel("Number 2:"));
+        add(num2);
+
+        add(new JLabel("Result:"));
+        add(result);
+
+        add(new JLabel(""));
+        add(addBtn);
+
+        setLocationRelativeTo(null); 
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        try {
+            int a = Integer.parseInt(num1.getText());
+            int b = Integer.parseInt(num2.getText());
+
+            result.setText(String.valueOf(a + b));
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Enter valid numbers!");
+        }
+    }
+
+    public static void main(String[] args) {
+        new AdditionGUI();
+    }
+}
+```
+<img width="476" height="236" alt="image" src="https://github.com/user-attachments/assets/09a6c9a9-829e-4c51-b663-3b3a76fd472c" />
+
+## assi-13
+```
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class CalculatorGUI extends JFrame implements ActionListener {
+
+    JTextField display;
+    String operator = "";
+    double num1 = 0, num2 = 0;
+
+    public CalculatorGUI() {
+
+        setTitle("Calculator");
+        setSize(300, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // ===== DISPLAY =====
+        display = new JTextField();
+        display.setFont(new Font("Arial", Font.BOLD, 20));
+        display.setHorizontalAlignment(JTextField.RIGHT);
+        add(display, BorderLayout.NORTH);
+
+        // ===== BUTTON PANEL =====
+        JPanel panel = new JPanel(new GridLayout(4, 4, 5, 5));
+
+        String buttons[] = {
+            "7", "8", "9", "/",
+            "4", "5", "6", "*",
+            "1", "2", "3", "-",
+            "0", "C", "=", "+"
+        };
+
+        for (String text : buttons) {
+            JButton btn = new JButton(text);
+            btn.setFont(new Font("Arial", Font.BOLD, 16));
+            btn.addActionListener(this);
+            panel.add(btn);
+        }
+
+        add(panel, BorderLayout.CENTER);
+
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+
+        String cmd = e.getActionCommand();
+
+        // Numbers
+        if (cmd.matches("[0-9]")) {
+            display.setText(display.getText() + cmd);
+        }
+
+        // Operators
+        else if (cmd.matches("[+\\-*/]")) {
+            num1 = Double.parseDouble(display.getText());
+            operator = cmd;
+            display.setText("");
+        }
+
+        // Equals
+        else if (cmd.equals("=")) {
+            num2 = Double.parseDouble(display.getText());
+
+            double result = 0;
+
+            switch (operator) {
+                case "+": result = num1 + num2; break;
+                case "-": result = num1 - num2; break;
+                case "*": result = num1 * num2; break;
+                case "/": result = num1 / num2; break;
+            }
+
+            display.setText(String.valueOf(result));
+        }
+
+        // Clear
+        else if (cmd.equals("C")) {
+            display.setText("");
+            num1 = num2 = 0;
+        }
+    }
+
+    public static void main(String[] args) {
+        new CalculatorGUI();
+    }
+}
+```
+<img width="284" height="392" alt="image" src="https://github.com/user-attachments/assets/67dbfb4f-987a-41f9-95ec-8c7e02727a6e" />
+
+
+## assi-14
+```
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class MatrixAdditionGUI extends JFrame implements ActionListener {
+
+    JTextField[][] A = new JTextField[2][2];
+    JTextField[][] B = new JTextField[2][2];
+    JTextField[][] R = new JTextField[2][2];
+
+    JButton addButton;
+
+    public MatrixAdditionGUI() {
+
+        setTitle("Matrix Addition");
+        setSize(500, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout(10, 10));
+
+        // ===== TITLE =====
+        JLabel title = new JLabel("Matrix Addition", JLabel.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 18));
+        add(title, BorderLayout.NORTH);
+
+        // ===== CENTER PANEL =====
+        JPanel center = new JPanel(new GridLayout(1, 3, 20, 20));
+        center.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        center.add(createMatrixPanel(A, "Matrix A"));
+        center.add(createMatrixPanel(B, "Matrix B"));
+        center.add(createMatrixPanel(R, "Result"));
+
+        add(center, BorderLayout.CENTER);
+
+        // ===== BUTTON PANEL =====
+        JPanel bottom = new JPanel();
+        addButton = new JButton("Add");
+        addButton.setPreferredSize(new Dimension(100, 40));
+        addButton.addActionListener(this);
+
+        bottom.add(addButton);
+        add(bottom, BorderLayout.SOUTH);
+
+        setVisible(true);
+    }
+
+    // Method to create matrix panel
+    JPanel createMatrixPanel(JTextField[][] matrix, String title) {
+        JPanel panel = new JPanel(new GridLayout(2, 2, 5, 5));
+        panel.setBorder(BorderFactory.createTitledBorder(title));
+
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+
+                matrix[i][j] = new JTextField();
+                matrix[i][j].setHorizontalAlignment(JTextField.CENTER);
+
+                if (title.equals("Result")) {
+                    matrix[i][j].setEditable(false);
+                    matrix[i][j].setBackground(new Color(230, 230, 230));
+                }
+
+                panel.add(matrix[i][j]);
+            }
+        }
+        return panel;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        try {
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+
+                    int a = Integer.parseInt(A[i][j].getText());
+                    int b = Integer.parseInt(B[i][j].getText());
+
+                    R[i][j].setText(String.valueOf(a + b));
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Enter valid numbers!");
+        }
+    }
+
+    public static void main(String[] args) {
+        new MatrixAdditionGUI();
+    }
+}
+```
+<img width="484" height="392" alt="image" src="https://github.com/user-attachments/assets/68c1f6dc-364a-4d8d-a517-e3ee51abe03b" />
+
+## assi-15
+```
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class ShapeDrawer extends JFrame implements ActionListener {
+
+    String shape = "";
+
+    public ShapeDrawer() {
+
+        setTitle("Shape Drawer");
+        setSize(600, 500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Panel for buttons
+        JPanel panel = new JPanel(new GridLayout(2, 5));
+
+        String buttons[] = {
+            "Circle", "Oval", "Rectangle", "Square", "Line",
+            "Arc", "RoundRect", "3D Rect", "Fill Oval", "Fill Rect"
+        };
+
+        for (String name : buttons) {
+            JButton btn = new JButton(name);
+            btn.addActionListener(this);
+            panel.add(btn);
+        }
+
+        add(panel, BorderLayout.NORTH);
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        shape = e.getActionCommand();
+        repaint(); // redraw when button clicked
+    }
+
+    public void paint(Graphics g) {
+        super.paint(g);
+
+        g.setColor(Color.BLUE);
+
+        switch (shape) {
+            case "Circle":
+                g.drawOval(200, 150, 100, 100);
+                break;
+
+            case "Oval":
+                g.drawOval(200, 150, 150, 100);
+                break;
+
+            case "Rectangle":
+                g.drawRect(200, 150, 150, 100);
+                break;
+
+            case "Square":
+                g.drawRect(200, 150, 100, 100);
+                break;
+
+            case "Line":
+                g.drawLine(200, 150, 350, 250);
+                break;
+
+            case "Arc":
+                g.drawArc(200, 150, 150, 100, 0, 180);
+                break;
+
+            case "RoundRect":
+                g.drawRoundRect(200, 150, 150, 100, 30, 30);
+                break;
+
+            case "3D Rect":
+                g.draw3DRect(200, 150, 150, 100, true);
+                break;
+
+            case "Fill Oval":
+                g.fillOval(200, 150, 150, 100);
+                break;
+
+            case "Fill Rect":
+                g.fillRect(200, 150, 150, 100);
+                break;
+        }
+    }
+
+    public static void main(String[] args) {
+        new ShapeDrawer();
+    }
+}
+```
+<img width="568" height="469" alt="image" src="https://github.com/user-attachments/assets/fca9f628-35f0-4cc4-844e-a1757ac4864e" />
+
+## assi-16
+```
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class PaintBrush extends JFrame implements MouseListener, MouseMotionListener {
+
+    int x1, y1, x2, y2;
+    Color currentColor = Color.BLACK;
+    int brushSize = 3;
+
+    public PaintBrush() {
+
+        setTitle("Simple Paint Brush");
+        setSize(600, 500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        addMouseListener(this);
+        addMouseMotionListener(this);
+
+        // Top Panel (Controls)
+        JPanel panel = new JPanel();
+
+        // Color Buttons
+        JButton red = new JButton("Red");
+        JButton blue = new JButton("Blue");
+        JButton green = new JButton("Green");
+
+        // Width Selector
+        String sizes[] = {"2", "5", "10"};
+        JComboBox<String> widthBox = new JComboBox<>(sizes);
+
+        panel.add(red);
+        panel.add(blue);
+        panel.add(green);
+        panel.add(new JLabel("Brush Size:"));
+        panel.add(widthBox);
+
+        add(panel, BorderLayout.NORTH);
+
+        // Button Actions
+        red.addActionListener(e -> currentColor = Color.RED);
+        blue.addActionListener(e -> currentColor = Color.BLUE);
+        green.addActionListener(e -> currentColor = Color.GREEN);
+
+        widthBox.addActionListener(e -> {
+            brushSize = Integer.parseInt((String) widthBox.getSelectedItem());
+        });
+
+        setVisible(true);
+    }
+
+    // Drawing
+    public void mouseDragged(MouseEvent e) {
+        x2 = e.getX();
+        y2 = e.getY();
+
+        Graphics g = getGraphics();
+        g.setColor(currentColor);
+        ((Graphics2D) g).setStroke(new BasicStroke(brushSize));
+        g.drawLine(x1, y1, x2, y2);
+
+        x1 = x2;
+        y1 = y2;
+    }
+
+    public void mousePressed(MouseEvent e) {
+        x1 = e.getX();
+        y1 = e.getY();
+    }
+
+    // Unused methods (must implement)
+    public void mouseReleased(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {}
+    public void mouseMoved(MouseEvent e) {}
+
+    public static void main(String[] args) {
+        new PaintBrush();
+    }
+}
+```
+<img width="567" height="469" alt="image" src="https://github.com/user-attachments/assets/7c48d58e-103a-46a7-841c-662990250642" />
+
+## assi-17
+```
+//File: Employee.java
+package company;
+public class Employee {
+    public void showEmployee() {
+        System.out.println("This is Employee class in package company");
+    }
+}
+
+//File: Salary.java
+package company.payroll;
+
+public class Salary {
+    public void showSalary() {
+        System.out.println("This is Salary class in sub-package company.payroll");
+    }
+}
+
+//File: TestCompany.java
+import company.Employee;
+import company.payroll.Salary;
+
+public class TestCompany {
+
+    public static void main(String[] args) {
+
+        Employee e = new Employee();
+        e.showEmployee();
+
+        Salary s = new Salary();
+        s.showSalary();
+    }
+}
+```
+<img width="898" height="139" alt="image" src="https://github.com/user-attachments/assets/ea79a7e4-5f25-4d22-a88d-9d38c9a9f9f7" />
+
 
 ## assi-18
 ```
