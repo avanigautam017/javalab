@@ -1088,6 +1088,72 @@ public class Student {
 <img width="666" height="146" alt="image" src="https://github.com/user-attachments/assets/ea86a252-2c1c-45ba-aaaf-34a4195cd1b9" />
 
 ## assi-21
+```
+import java.io.*;
+public class FileHandlingDemo {
+    public static void main(String[] args) {
+        try {
+
+            // ================= BYTE STREAM COPY =================
+            FileInputStream fis1 = new FileInputStream("source.txt");
+            FileOutputStream fos1 = new FileOutputStream("dest_byte.txt");
+
+            int b;
+            while ((b = fis1.read()) != -1) {
+                fos1.write(b);
+            }
+
+            fis1.close();
+            fos1.close();
+            System.out.println("BYTE STREAM COPY DONE");
+
+
+            // ================= CHARACTER STREAM COPY =================
+            FileReader fr1 = new FileReader("source.txt");
+            FileWriter fw1 = new FileWriter("dest_char.txt");
+
+            int ch;
+            while ((ch = fr1.read()) != -1) {
+                fw1.write(ch);
+            }
+
+            fr1.close();
+            fw1.close();
+            System.out.println("CHARACTER STREAM COPY DONE");
+
+
+            // ================= WRITE & READ USING BYTE STREAM =================
+            FileOutputStream fos2 = new FileOutputStream("bytefile.txt");
+            fos2.write("Hello".getBytes());
+            fos2.close();
+
+            FileInputStream fis2 = new FileInputStream("bytefile.txt");
+            while ((b = fis2.read()) != -1) {
+                System.out.print((char) b);
+            }
+            fis2.close();
+            System.out.println();
+
+
+            // ================= WRITE & READ USING CHARACTER STREAM =================
+            FileWriter fw2 = new FileWriter("charfile.txt");
+            fw2.write("Hello Java");
+            fw2.close();
+
+            FileReader fr2 = new FileReader("charfile.txt");
+            while ((ch = fr2.read()) != -1) {
+                System.out.print((char) ch);
+            }
+            fr2.close();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+}
+```
+<img width="847" height="195" alt="image" src="https://github.com/user-attachments/assets/103de49e-c608-428a-9483-6ab1dfb1c71b" />
+
 
 ## assi-22
 ``` // Interface
