@@ -437,6 +437,128 @@ public class Main {
 ```
 <img width="790" height="260" alt="image" src="https://github.com/user-attachments/assets/b9c02b38-a32f-495e-98ee-e6f7650bbdf6" />
 
+## assi-9
+
+```
+class A1 {
+    void print() {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println("A (NO THREAD): " + i);
+        }
+    }
+}
+
+class B1 {
+    void print() {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println("B (NO THREAD): " + i);
+        }
+    }
+}
+
+class C1 {
+    void print() {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println("C (NO THREAD): " + i);
+        }
+    }
+}
+
+// THREAD CLASS
+class A2 extends Thread {
+    public void run() {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println("A (THREAD): " + i);
+        }
+    }
+}
+
+class B2 extends Thread {
+    public void run() {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println("B (THREAD): " + i);
+        }
+    }
+}
+
+class C2 extends Thread {
+    public void run() {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println("C (THREAD): " + i);
+        }
+    }
+}
+
+// RUNNABLE
+class A3 implements Runnable {
+    public void run() {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println("A (RUNNABLE): " + i);
+        }
+    }
+}
+
+class B3 implements Runnable {
+    public void run() {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println("B (RUNNABLE): " + i);
+        }
+    }
+}
+
+class C3 implements Runnable {
+    public void run() {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println("C (RUNNABLE): " + i);
+        }
+    }
+}
+
+public class AllInOneThreads {
+    public static void main(String[] args) {
+
+        // WITHOUT THREAD
+        System.out.println("===== WITHOUT THREAD =====");
+        new A1().print();
+        new B1().print();
+        new C1().print();
+
+        // WITH THREAD
+        System.out.println("\n===== WITH THREAD =====");
+        A2 t1 = new A2();
+        B2 t2 = new B2();
+        C2 t3 = new C2();
+
+        t1.start();
+        t2.start();
+        t3.start();
+
+        try {
+            t1.join();
+            t2.join();
+            t3.join();
+        } catch (Exception e) {}
+
+        // RUNNABLE
+        System.out.println("\n===== USING RUNNABLE =====");
+        Thread r1 = new Thread(new A3());
+        Thread r2 = new Thread(new B3());
+        Thread r3 = new Thread(new C3());
+
+        r1.start();
+        r2.start();
+        r3.start();
+    }
+}
+```
+<img width="793" height="333" alt="image" src="https://github.com/user-attachments/assets/63362b68-3a22-4928-a084-aeedd1b631bd" />
+```
+```
+<img width="612" height="261" alt="image" src="https://github.com/user-attachments/assets/6fa01732-d67a-4869-a117-61998798d3c0" />
+```
+```
+<img width="762" height="258" alt="image" src="https://github.com/user-attachments/assets/600f355e-c398-44eb-afb4-2793ca3fc309" />
+
 ## assi-10
 ```
 class MyThread extends Thread {
